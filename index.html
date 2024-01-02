@@ -7,16 +7,74 @@
 <body>
   <label for="userInput1">Enter something:</label>
   <input type="text" class="userInput1">
-  <label for="userInput2">Enter another something:</label>
-  <input type="text" class="userInput2">
+  <!-- <label for="userInput2">Enter another something:</label> -->
+  <!-- <input type="text" class="userInput2"> -->
   <p>Nothing happened yet...</p>
 
   <script>
     const output = document.querySelector("p");
     const userInput1 = document.querySelector(".userInput1");
-    const userInput2 = document.querySelector(".userInput2");
+    // const userInput2 = document.querySelector(".userInput2");
 
-    output.textContent = `The result is ${userInput1.getAttribute()}`;
+    userInput1.addEventListener("change", (event) => {
+      let computerPlayed = getComputerChoice();
+      output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. ${playRound(computerPlayed, event.target.value)}`;
+    });
+
+    function playRound(computerSelection, playerSelection) {
+      
+      computerSelection = computerSelection.toLowerCase()
+      playerSelection = playerSelection.toLowerCase()
+
+      switch (computerSelection) {
+        case "rock":
+          switch (playerSelection) {
+            case "rock":
+                return "TIE"
+              break;
+            case "paper":
+              return "You won! Paper beats rock!"
+              break;
+            case "scisors":
+              return "You lose! Rocks beats scisors!"
+              break;
+          }
+          break;
+        case "paper":
+        switch (playerSelection) {
+            case "rock":
+              return "You lose! Paper beats rocks!"
+              break;
+            case "paper":
+              return "TIE"
+              break;
+            case "scisors":
+              return "You won! Scisors beats paper!"
+              break;
+          }
+          break;
+        case "scisors":
+        switch (playerSelection) {
+            case "rock":
+              "You won! Rocks beats scisors!"
+              break;
+            case "paper":
+              return "You lose! Scisors beats paper!"
+              break;
+            case "scisors":
+              return "TIE"
+              break;
+          }
+          break;
+      }
+    }
+    
+    function getComputerChoice() {
+      computerChoice = ["Rock", "Paper", "Scisors"];
+      
+      return computerChoice[Math.floor(Math.random()*(computerChoice.length + 1))]
+
+    } 
 
   </script>
 </body>
