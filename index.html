@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+</head>
+<body>
+  <label for="userInput1">Enter something:</label>
+  <input type="text" class="userInput1">
+  <label for="userInput2">Enter another something:</label>
+  <input type="text" class="userInput2">
+  <p>Nothing happened yet...</p>
+
+  <script>
+    const output = document.querySelector("p");
+    const userInput1 = document.querySelector(".userInput1");
+    const userInput2 = document.querySelector(".userInput2");
+
+    output.textContent = `The result is ${userInput1.getAttribute()}`;
+
+  </script>
+</body>
+</html>
