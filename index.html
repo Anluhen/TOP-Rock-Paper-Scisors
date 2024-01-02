@@ -9,17 +9,47 @@
   <input type="text" class="userInput1">
   <!-- <label for="userInput2">Enter another something:</label> -->
   <!-- <input type="text" class="userInput2"> -->
-  <p>Nothing happened yet...</p>
+  <p>Type "Rock", "Paper" or "Scisors" and press Enter. Nothing happened yet...</p>
 
   <script>
     const output = document.querySelector("p");
     const userInput1 = document.querySelector(".userInput1");
     // const userInput2 = document.querySelector(".userInput2");
 
-    userInput1.addEventListener("change", (event) => {
-      let computerPlayed = getComputerChoice();
-      output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. ${playRound(computerPlayed, event.target.value)}`;
+    let computerScore = 0;
+    let playerScore = 0;
+    
+    userInput1.addEventListener("keydown", (event) => {
+      game(event.target.value)
     });
+
+    function game(playerPlayed){
+      let computerPlayed = getComputerChoice();
+      let result = playRound(computerPlayed, playerPlayed);
+
+      if (result == 0) {
+        output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. That's a TIE!
+                              Current Score: ${playerScore} x ${computerScore}`;
+      } else if (result < 0){
+        computerScore += 1;
+        output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. You lose!
+                              Current Score: ${playerScore} x ${computerScore}`;
+      } else if (result > 0){
+        playerScore += 1;
+        output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. You won!
+                              Current Score: ${playerScore} x ${computerScore}`;
+      }
+
+      if (computerScore == 5) {
+        output.textContent = `You lost! The computer won! ${computerScore} x ${playerScore}`;
+        computerScore = 0;
+        playerScore = 0;
+      } else if (playerScore == 5) {
+        output.textContent = `Congratulations! You won! ${playerScore} x ${computerScore}`;
+        computerScore = 0;
+        playerScore = 0;
+      }
+    }
 
     function playRound(computerSelection, playerSelection) {
       
@@ -30,39 +60,39 @@
         case "rock":
           switch (playerSelection) {
             case "rock":
-                return "TIE"
+                return 0
               break;
             case "paper":
-              return "You won! Paper beats rock!"
+              return 1
               break;
             case "scisors":
-              return "You lose! Rocks beats scisors!"
+              return -1
               break;
           }
           break;
         case "paper":
         switch (playerSelection) {
             case "rock":
-              return "You lose! Paper beats rocks!"
+              return -1
               break;
             case "paper":
-              return "TIE"
+              return 0
               break;
             case "scisors":
-              return "You won! Scisors beats paper!"
+              return 1
               break;
           }
           break;
         case "scisors":
         switch (playerSelection) {
             case "rock":
-              "You won! Rocks beats scisors!"
+              return 1
               break;
             case "paper":
-              return "You lose! Scisors beats paper!"
+              return -1
               break;
             case "scisors":
-              return "TIE"
+              return 0
               break;
           }
           break;
