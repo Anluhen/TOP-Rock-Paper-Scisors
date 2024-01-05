@@ -5,22 +5,42 @@
   <title>Page Title</title>
 </head>
 <body>
-  <label for="userInput1">Enter something:</label>
-  <input type="text" class="userInput1">
+  <!-- <label for="userInput1">Enter something:</label>
+  <input type="text" class="userInput1"> -->
   <!-- <label for="userInput2">Enter another something:</label> -->
   <!-- <input type="text" class="userInput2"> -->
-  <p>Type "Rock", "Paper" or "Scisors" and press Enter. Nothing happened yet...</p>
-
+<!--   <p>Type "Rock", "Paper" or "Scisors" and press Enter. Nothing happened yet...</p>
+ -->
   <script>
-    const output = document.querySelector("p");
-    const userInput1 = document.querySelector(".userInput1");
-    // const userInput2 = document.querySelector(".userInput2");
+    const btnRock = document.createElement('button');
+    btnRock.textContent = "Rock";
+    const btnPaper = document.createElement('button');
+    btnPaper.textContent = "Paper";
+    const btnScisors = document.createElement('button');
+    btnScisors.textContent = "Scisors";
+
+    document.querySelector('body').appendChild(btnRock);
+    document.querySelector('body').appendChild(btnPaper);
+    document.querySelector('body').appendChild(btnScisors);
+
+    const output = document.createElement("p");
+    document.querySelector('body').appendChild(output);
+/*     const userInput1 = document.querySelector(".userInput1");
+ */    // const userInput2 = document.querySelector(".userInput2");
 
     let computerScore = 0;
     let playerScore = 0;
     
-    userInput1.addEventListener("keydown", (event) => {
-      game(event.target.value)
+    btnRock.addEventListener('click', () => {
+      game("Rock")
+    });
+
+    btnPaper.addEventListener('click', () => {
+      game("Paper")
+    });
+
+    btnScisors.addEventListener('click', () => {
+      game("Scisors")
     });
 
     function game(playerPlayed){
@@ -28,15 +48,15 @@
       let result = playRound(computerPlayed, playerPlayed);
 
       if (result == 0) {
-        output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. That's a TIE!
+        output.textContent = `You played ${playerPlayed}, computer played ${computerPlayed}. That's a TIE!
                               Current Score: ${playerScore} x ${computerScore}`;
       } else if (result < 0){
         computerScore += 1;
-        output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. You lose!
+        output.textContent = `You played ${playerPlayed}, computer played ${computerPlayed}. You lose!
                               Current Score: ${playerScore} x ${computerScore}`;
       } else if (result > 0){
         playerScore += 1;
-        output.textContent = `You played ${event.target.value}, computer played ${computerPlayed}. You won!
+        output.textContent = `You played ${playerPlayed}, computer played ${computerPlayed}. You won!
                               Current Score: ${playerScore} x ${computerScore}`;
       }
 
